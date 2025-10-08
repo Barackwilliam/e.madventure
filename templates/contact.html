@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<div class="container-fluid py-5 mb-5 hero-header" 
+     style="background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), 
+             url('{% static "img/serengeti-sunset.jpg" %}') center/cover no-repeat;">
+  <div class="container py-5 text-center text-white">
+    <h1 class="display-3 fw-bold mb-3 animated fadeInDown">Get in Touch</h1>
+    <p class="lead mb-4 animated fadeInUp">
+      Reach out to us — your next unforgettable Tanzanian adventure begins here.
+    </p>
+    <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a class="text-warning" href="/">Home</a></li>
+        <li class="breadcrumb-item text-light active" aria-current="page">Contact</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<!-- Contact Section -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="text-center wow fadeInUp mb-5" data-wow-delay="0.1s">
+      <h6 class="section-title text-uppercase text-primary fw-bold">Contact Us</h6>
+      <h1 class="mb-3 fw-bolder text-dark">We’re Here to Guide Your Journey</h1>
+      <p class="text-muted w-75 mx-auto">
+        Whether you’re planning a Kilimanjaro climb, a Serengeti safari, or a Zanzibar getaway — 
+        our passionate local experts are ready to help you plan a trip you’ll remember forever.
+      </p>
+    </div>
+
+    <div class="row g-5 align-items-start">
+      <!-- Contact Info -->
+      <div class="col-lg-4 col-md-6 wow fadeInLeft" data-wow-delay="0.1s">
+        <div class="bg-light rounded-4 shadow-sm p-4">
+          <h5 class="fw-bold text-primary mb-4">Get In Touch</h5>
+          <p>
+            We’re passionate about adventure, nature, and authentic experiences.
+            Let’s plan your next great escape together.
+          </p>
+
+          <div class="d-flex align-items-center mb-4">
+            <div class="bg-primary d-flex justify-content-center align-items-center rounded-circle" 
+                 style="width: 50px; height: 50px;">
+              <i class="fa fa-map-marker-alt text-white"></i>
+            </div>
+            <div class="ms-3">
+              <h6 class="text-primary mb-0">Our Office</h6>
+              <small>Sanawari, Arusha, Tanzania</small>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center mb-4">
+            <div class="bg-primary d-flex justify-content-center align-items-center rounded-circle" 
+                 style="width: 50px; height: 50px;">
+              <i class="fa fa-phone-alt text-white"></i>
+            </div>
+            <div class="ms-3">
+              <h6 class="text-primary mb-0">Phone</h6>
+              <small>+255 742 276 915</small>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center">
+            <div class="bg-primary d-flex justify-content-center align-items-center rounded-circle" 
+                 style="width: 50px; height: 50px;">
+              <i class="fa fa-envelope-open text-white"></i>
+            </div>
+            <div class="ms-3">
+              <h6 class="text-primary mb-0">Email</h6>
+              <small>e.madventure29@gmail.com</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+        <div class="rounded-4 overflow-hidden shadow-lg border border-light">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.755460517469!2d36.7083!3d-3.3625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1837f10f9f98fdc7%3A0x8df7ab1b6e1c8a2d!2sSanawari%2C%20Arusha%2C%20Tanzania!5e0!3m2!1sen!2stz!4v1728390000000!5m2!1sen!2stz"
+            class="w-100" style="min-height: 380px; border: 0;" allowfullscreen="" loading="lazy">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="col-lg-4 col-md-12 wow fadeInRight" data-wow-delay="0.5s">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-3" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <div class="bg-white rounded-4 shadow-sm p-4 border border-light">
+          <h5 class="text-primary fw-bold mb-4">Send Us a Message</h5>
+          <form method="POST" action="">
+            {% csrf_token %}
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                  <label for="name">Your Name</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
+                  <label for="email">Your Email</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+                  <label for="subject">Subject</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating">
+                  <textarea class="form-control" id="message" name="message" placeholder="Leave a message here"
+                            style="height: 120px" required></textarea>
+                  <label for="message">Message</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <button class="btn btn-primary w-100 py-3 rounded-pill fw-bold" type="submit">
+                  Send Message
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

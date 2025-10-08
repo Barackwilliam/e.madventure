@@ -1,0 +1,521 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Header -->
+<style>
+  :root {
+    --primary: #FF4500; /* Fiery orange */
+    --secondary: #228B22; /* Forest green */
+    --accent: #FFD700; /* Golden shine */
+    --dark: #1C2526; /* Deep charcoal */
+    --light: #F8F1E9; /* Warm cream */
+    --shadow-luxe: 0 8px 20px rgba(0, 0, 0, 0.2);
+    --transition-ease: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .hero-header {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(34, 139, 34, 0.3));
+    min-height: 65vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    animation: heroSlideshow 20s infinite ease-in-out;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  @keyframes heroSlideshow {
+    0%, 25% { background-image: url('{% static "img/serengeti.jpg" %}'); }
+    25%, 50% { background-image: url('{% static "img/kilimanjaro.jpg" %}'); }
+    50%, 75% { background-image: url('{% static "img/zanzibar.jpg" %}'); }
+    75%, 100% { background-image: url('{% static "img/ngorongoro.jpg" %}'); }
+  }
+
+  .hero-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(34, 139, 34, 0.3));
+    z-index: 1;
+  }
+
+  .hero-header .content {
+    position: relative;
+    z-index: 2;
+    max-width: clamp(600px, 80vw, 900px);
+    padding: clamp(20px, 5vw, 30px);
+  }
+
+  .hero-header h1 {
+    font-family: 'Merienda', cursive;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-header .breadcrumb {
+    background: transparent;
+    justify-content: center;
+    margin-bottom: 0;
+    animation: fadeInUp 1s ease-out 0.3s both;
+  }
+
+  .hero-header .breadcrumb a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    transition: color 0.3s var(--transition-ease);
+  }
+
+  .hero-header .breadcrumb a:hover {
+    color: var(--primary);
+  }
+
+  .hero-header .breadcrumb .active {
+    color: var(--light);
+    font-weight: 600;
+  }
+
+  /* Services Section */
+  .service-section {
+    background: linear-gradient(to right, var(--light), #ffffff);
+    padding: clamp(40px, 8vw, 60px) 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static "img/safari-pattern.png" %}') repeat;
+    opacity: 0.03;
+    z-index: 0;
+  }
+
+  .service-section .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .service-section .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+  }
+
+  .service-section h1 {
+    font-family: 'Merienda', cursive;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    color: var(--dark);
+  }
+
+  .service-card {
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-luxe);
+    transition: transform 0.3s var(--transition-ease), box-shadow 0.3s var(--transition-ease);
+    text-align: center;
+    position: relative;
+  }
+
+  .service-card:hover {
+    transform: translateY(-8px) rotate(1deg);
+    box-shadow: 0 12px 30px rgba(255, 69, 0, 0.3);
+  }
+
+  .service-card img {
+    width: 100%;
+    height: clamp(180px, 30vw, 220px);
+    object-fit: cover;
+    border-bottom: 3px solid var(--accent);
+    transition: transform 0.5s var(--transition-ease);
+  }
+
+  .service-card:hover img {
+    transform: scale(1.1);
+  }
+
+  .service-card h5 {
+    font-family: 'Merienda', cursive;
+    font-weight: 700;
+    margin: 1rem 0 0.5rem;
+    color: var(--dark);
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .service-card h5::before {
+    content: '\f6c0';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--accent);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    margin-right: 0.5rem;
+  }
+
+  .service-card p {
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark);
+    padding: 0 clamp(10px, 2vw, 15px) clamp(10px, 2vw, 15px);
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    line-height: 1.7;
+  }
+
+  /* Testimonial Section */
+  .testimonial-section {
+    background: linear-gradient(to bottom right, var(--light), #ffffff);
+    padding: clamp(40px, 8vw, 60px) 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonial-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static "img/safari-pattern.png" %}') repeat;
+    opacity: 0.03;
+    z-index: 0;
+  }
+
+  .testimonial-section .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .testimonial-section .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+  }
+
+  .testimonial-section h1 {
+    font-family: 'Merienda', cursive;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    color: var(--dark);
+  }
+
+  .testimonial-item {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: clamp(20px, 4vw, 30px);
+    text-align: center;
+    box-shadow: var(--shadow-luxe);
+    transition: transform 0.3s var(--transition-ease), box-shadow 0.3s var(--transition-ease);
+    position: relative;
+  }
+
+  .testimonial-item::before {
+    content: '\f10d';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--accent);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    opacity: 0.2;
+  }
+
+  .testimonial-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(255, 69, 0, 0.3);
+  }
+
+  .testimonial-img {
+    width: clamp(90px, 20vw, 120px);
+    height: clamp(90px, 20vw, 120px);
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 1rem;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 10px rgba(255, 69, 0, 0.3);
+    transition: box-shadow 0.3s var(--transition-ease);
+  }
+
+  .testimonial-item:hover .testimonial-img {
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.5);
+  }
+
+  .testimonial-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .testimonial-item h5 {
+    font-family: 'Merienda', cursive;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--dark);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+  }
+
+  .testimonial-item .badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--secondary);
+    color: #ffffff;
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
+    padding: clamp(5px, 1.5vw, 7px) clamp(10px, 2.5vw, 12px);
+    border-radius: 25px;
+  }
+
+  .testimonial-item p {
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark);
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    line-height: 1.7;
+  }
+
+  .owl-carousel .owl-nav button {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    border-radius: 50%;
+    width: clamp(40px, 8vw, 45px);
+    height: clamp(40px, 8vw, 45px);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    transition: all 0.3s var(--transition-ease);
+    margin: 0 0.5rem;
+  }
+
+  .owl-carousel .owl-nav button:hover {
+    background: var(--accent) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 576px) {
+    .hero-header {
+      min-height: 50vh;
+    }
+    .hero-header h1 {
+      font-size: clamp(2rem, 5vw, 2.5rem);
+    }
+    .hero-header .breadcrumb a, .hero-header .breadcrumb .active {
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+    }
+    .service-section, .testimonial-section {
+      padding: clamp(30px, 6vw, 40px) 15px;
+    }
+    .service-card img {
+      height: 160px;
+    }
+    .service-card h5 {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+    }
+    .service-card p {
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+    }
+    .testimonial-img {
+      width: clamp(80px, 18vw, 100px);
+      height: clamp(80px, 18vw, 100px);
+    }
+    .testimonial-item h5 {
+      font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+    .testimonial-item p {
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+    }
+    .owl-carousel .owl-nav {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .service-card {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 991px) {
+    .hero-header h1 {
+      font-size: clamp(2.2rem, 5vw, 3rem);
+    }
+    .service-card img {
+      height: 200px;
+    }
+    .testimonial-img {
+      width: clamp(100px, 15vw, 110px);
+      height: clamp(100px, 15vw, 110px);
+    }
+  }
+</style>
+
+<div class="hero-header wow fadeIn" data-wow-delay="0.2s">
+  <div class="content">
+    <h1 class="animated slideInDown">Our Services</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" onclick="showLoading(event)">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Services</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<!-- Services Section -->
+<div class="service-section wow fadeInUp" data-wow-delay="0.3s">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h6 class="section-title px-3" style="color: var(--primary);">Our Services</h6>
+      <h1 class="font-merienda">Explore What We Offer</h1>
+    </div>
+    <div class="row g-4 justify-content-center">
+      {% for service in services %}
+      <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ forloop.counter|floatformat:1|add:'0.1' }}s">
+        <div class="service-card">
+          <img src="{{ service.image|default:'{% static "img/default-service.jpg" %}' }}" alt="{{ service.title }}">
+          <h5>{{ service.title }}</h5>
+          <p>{{ service.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Testimonial Section -->
+<<<<<<< HEAD
+<div class="testimonial-section wow fadeInUp" data-wow-delay="0.4s">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h6 class="section-title px-3" style="color: var(--primary);">Testimonials</h6>
+      <h1 class="font-merienda">What Our Clients Say</h1>
+    </div>
+    <div class="owl-carousel testimonial-carousel">
+      {% for test in testimonial %}
+      <div class="testimonial-item">
+        <div class="testimonial-img">
+          <img src="{{ test.image|default:'{% static "img/default-testimonial.jpg" %}' }}" alt="{{ test.Full_name }}">
+=======
+<style>
+.testimonial-item {
+    background: linear-gradient(135deg, #fff8f0, #ffe5d4);
+    border-radius: 25px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.testimonial-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+}
+
+/* Container ya picha ili kuhakikisha ni duara halisi */
+.testimonial-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 15px;
+    border: 4px solid #ffd700;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.testimonial-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.testimonial-item h5 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.testimonial-item p {
+    font-family: 'Open Sans', sans-serif;
+    color: #555;
+    font-size: 0.95rem;
+}
+.owl-carousel .owl-nav button {
+    background: #ff9900 !important;
+    color: #fff !important;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    transition: 0.3s;
+}
+.owl-carousel .owl-nav button:hover {
+    background: #e68a00 !important;
+}
+</style>
+
+<div class="container py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="text-center mb-5">
+        <h6 class="section-title px-3" style="color: #ff9900;">Testimonials</h6>
+        <h1>What Our Clients Say</h1>
+    </div>
+    <div class="owl-carousel testimonial-carousel">
+        {% for test in testimonial %}
+        <div class="testimonial-item">
+            <div class="testimonial-img">
+                <img src="{{ test.image }}" alt="{{ test.Full_name }}">
+            </div>
+            <h5>{{ test.Full_name }}</h5>
+            <p class="text-muted">{{ test.country }}</p>
+            <p>{{ test.description }}</p>
+>>>>>>> 627a7e8c5a5cabd1f625583a33cf8d889abe19d7
+        </div>
+        <h5>{{ test.Full_name }}</h5>
+        <span class="badge">{{ test.country }}</span>
+        <p>{{ test.description }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+<!-- Scripts for Animate.css & Owl Carousel -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.testimonial-carousel').owlCarousel({
+      loop: true,
+      margin: 20,
+      nav: true,
+      autoplay: true,
+      autoplayTimeout: 4000,
+      autoplayHoverPause: true,
+      responsive: {
+        0: { items: 1 },
+        768: { items: 2 },
+        992: { items: 3 }
+      }
+    });
+  });
+</script>
+{% endblock %}
