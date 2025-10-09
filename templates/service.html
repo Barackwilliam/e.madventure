@@ -401,7 +401,7 @@
 </div>
 
 <!-- Testimonial Section -->
-<<<<<<< HEAD
+
 <div class="testimonial-section wow fadeInUp" data-wow-delay="0.4s">
   <div class="container">
     <div class="text-center mb-5">
@@ -413,78 +413,10 @@
       <div class="testimonial-item">
         <div class="testimonial-img">
           <img src="{{ test.image|default:'{% static "img/default-testimonial.jpg" %}' }}" alt="{{ test.Full_name }}">
-=======
-<style>
-.testimonial-item {
-    background: linear-gradient(135deg, #fff8f0, #ffe5d4);
-    border-radius: 25px;
-    padding: 30px 20px;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.testimonial-item:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.25);
-}
-
-/* Container ya picha ili kuhakikisha ni duara halisi */
-.testimonial-img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin: 0 auto 15px;
-    border: 4px solid #ffd700;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-.testimonial-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-}
-
-.testimonial-item h5 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-.testimonial-item p {
-    font-family: 'Open Sans', sans-serif;
-    color: #555;
-    font-size: 0.95rem;
-}
-.owl-carousel .owl-nav button {
-    background: #ff9900 !important;
-    color: #fff !important;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-    transition: 0.3s;
-}
-.owl-carousel .owl-nav button:hover {
-    background: #e68a00 !important;
-}
-</style>
-
-<div class="container py-5 wow fadeInUp" data-wow-delay="0.1s">
-    <div class="text-center mb-5">
-        <h6 class="section-title px-3" style="color: #ff9900;">Testimonials</h6>
-        <h1>What Our Clients Say</h1>
-    </div>
-    <div class="owl-carousel testimonial-carousel">
-        {% for test in testimonial %}
-        <div class="testimonial-item">
-            <div class="testimonial-img">
-                <img src="{{ test.image }}" alt="{{ test.Full_name }}">
             </div>
             <h5>{{ test.Full_name }}</h5>
             <p class="text-muted">{{ test.country }}</p>
             <p>{{ test.description }}</p>
->>>>>>> 627a7e8c5a5cabd1f625583a33cf8d889abe19d7
         </div>
         <h5>{{ test.Full_name }}</h5>
         <span class="badge">{{ test.country }}</span>
