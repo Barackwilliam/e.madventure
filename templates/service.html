@@ -31,10 +31,10 @@
   }
 
   @keyframes heroSlideshow {
-    0%, 25% { background-image: url('{% static "img/serengeti.jpg" %}'); }
+    0%, 25% { background-image: url('{% static "img/2.jpg" %}'); }
     25%, 50% { background-image: url('{% static "img/kilimanjaro.jpg" %}'); }
     50%, 75% { background-image: url('{% static "img/zanzibar.jpg" %}'); }
-    75%, 100% { background-image: url('{% static "img/ngorongoro.jpg" %}'); }
+    75%, 100% { background-image: url('{% static "img/1.jpg" %}'); }
   }
 
   .hero-header::before {
@@ -401,7 +401,6 @@
 </div>
 
 <!-- Testimonial Section -->
-
 <div class="testimonial-section wow fadeInUp" data-wow-delay="0.4s">
   <div class="container">
     <div class="text-center mb-5">
@@ -413,10 +412,6 @@
       <div class="testimonial-item">
         <div class="testimonial-img">
           <img src="{{ test.image|default:'{% static "img/default-testimonial.jpg" %}' }}" alt="{{ test.Full_name }}">
-            </div>
-            <h5>{{ test.Full_name }}</h5>
-            <p class="text-muted">{{ test.country }}</p>
-            <p>{{ test.description }}</p>
         </div>
         <h5>{{ test.Full_name }}</h5>
         <span class="badge">{{ test.country }}</span>
@@ -426,7 +421,6 @@
     </div>
   </div>
 </div>
-
 
 <!-- Scripts for Animate.css & Owl Carousel -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
