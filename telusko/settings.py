@@ -58,18 +58,23 @@ INSTALLED_APPS = [
 
 ]
 
+# If using uploader:
+CKEDITOR_UPLOAD_PATH = 'uploads/' 
+JAMIITEK_API_KEY = "1SA75sMYcWt2AUkoXeQP1GvGog0Q8YYGTIzXbHMv9MDd49b4Oj6H4iEG6OGQ6Yjf"
+JAMIITEK_API_URL = "https://jamiitek.com/api/site-status/"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # This one here
-
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+    'jamiitek_middleware.JamiiTekStatusMiddleware',  # This one here
 
+]
 ROOT_URLCONF = 'telusko.urls'
 
 TEMPLATES = [
