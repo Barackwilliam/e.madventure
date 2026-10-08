@@ -390,7 +390,7 @@
       {% for service in services %}
       <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ forloop.counter|floatformat:1|add:'0.1' }}s">
         <div class="service-card">
-          <img src="{{ service.image|default:'{% static "img/default-service.jpg" %}' }}" alt="{{ service.title }}">
+          <img loading="lazy" decoding="async" src="{{ service.image|default:'{% static "img/default-service.jpg" %}' }}" alt="{{ service.title }}">
           <h5>{{ service.title }}</h5>
           <p>{{ service.description }}</p>
         </div>
@@ -413,7 +413,7 @@
       <div class="review-card">
         <!-- Profile Image -->
         <div class="review-image">
-          <img src="{{ test.image|default:'{% static "img/default-testimonial.jpg" %}' }}" alt="{{ test.Full_name }}">
+          <img loading="lazy" decoding="async" src="{{ test.image|default:'{% static "img/default-testimonial.jpg" %}' }}" alt="{{ test.Full_name }}">
         </div>
 
         <!-- Review Text -->
@@ -533,13 +533,16 @@
 </style>
 
 <!-- ================= SCRIPTS ================= -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<!-- Carousel: jQuery + Owl load only on pages that use them, without blocking rendering -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" defer></script>
 
 <script>
-  $(document).ready(function(){
+  document.addEventListener('DOMContentLoaded', function () {
+    var $ = window.jQuery;
+    if (!$ || !$.fn.owlCarousel) return;
     $(".review-carousel").owlCarousel({
       items: 1,
       loop: true,
@@ -564,13 +567,10 @@
 
 
 
-<!-- Scripts for Animate.css & Owl Carousel -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script>
-  $(document).ready(function() {
+  document.addEventListener('DOMContentLoaded', function () {
+    var $ = window.jQuery;
+    if (!$ || !$.fn.owlCarousel) return;
     $('.testimonial-carousel').owlCarousel({
       loop: true,
       margin: 20,

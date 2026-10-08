@@ -1,14 +1,21 @@
-{% load static %}
+{% load static imgopt %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <title>E.M Adventure Tanzania</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Connect early to the CDNs used below -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <!-- Fonts & icons load without blocking the first paint -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Open+Sans:wght@400;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  </noscript>
   <!-- SEO Basics -->
   <meta name="description" content="Embark on thrilling journeys, discover hidden gems, and create unforgettable memories in every corner of Tanzania and beyond.">
   <meta name="keywords" content="Tanzania adventures, safari, hiking, Kilimanjaro, Serengeti, Zanzibar, travel Africa">
@@ -30,15 +37,10 @@
   <meta name="twitter:image" content="{% static 'img/logo.jpg' %}" />
   <!-- Favicon -->
   <link href="{% static 'img/favicon.ico' %}" rel="icon">
-  <!-- Icon Font Stylesheet -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Libraries Stylesheet -->
   <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
-  <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
-  <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet">
-  <!-- Customized Bootstrap Stylesheet -->
-  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- One Bootstrap for the whole site (pages used to load a second copy) -->
+  <link href="{% static 'css/bootstrap-5.3.3.min.css' %}" rel="stylesheet">
   <!-- Template Stylesheet -->
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
   <style>
@@ -1053,11 +1055,29 @@
         display: block;
       }
     }
+  
+    /* ============================================================
+       MOBILE: keep every page inside the screen width
+    ============================================================ */
+    /* Decorative elements must never widen the page (clip keeps sticky
+       headers working, unlike overflow:hidden). */
+    html, body { overflow-x: hidden; }
+    @supports (overflow: clip) { html, body { overflow-x: clip; } }
+    img, video, iframe { max-width: 100%; }
+    img { height: auto; }
+    p, li, td, a, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+    table { max-width: 100%; }
+    @media (max-width: 575.98px) {
+      /* Bootstrap's widest gutters are wider than the phone's side padding */
+      .row.g-5, .row.gx-5, .row.g-4, .row.gx-4 { --bs-gutter-x: 1.5rem; }
+      input, select, textarea { font-size: 16px; } /* stops iOS zooming into form fields */
+      .back-to-top { right: 16px; bottom: 90px; }
+    }
   </style>
 </head>
 <body>
   <!-- Spinner -->
-  <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+  <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-border" style="width: 2.5rem; height: 2.5rem; border-color: var(--teal);" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
@@ -1091,12 +1111,12 @@
   <nav class="container-fluid premium-navbar px-3 px-lg-4 position-relative">
     <div class="container">
       <div class="d-flex align-items-center justify-content-between w-100">
-        <a href="{% url 'admin:index' %}" class="navbar-brand">
+        <a href="{% url 'index' %}" class="navbar-brand">
           {% for i in compan %}
-          <img src="{{i.image|default:'{% static "img/logo.jpg" %}' }}" alt="Logo">
+          <img fetchpriority="high" decoding="async" src="{% if i.image %}{{ i.image|ucare:200 }}{% else %}{% static 'img/logo.jpg' %}{% endif %}" alt="Logo">
           <span>{{i.company_name|default:'E.M Adventure Tanzania'}}</span>
           {% empty %}
-          <img src="{% static 'img/logo.jpg' %}" alt="Logo">
+          <img fetchpriority="high" decoding="async" src="{% static 'img/logo.jpg' %}" alt="Logo">
           <span>E.M Adventure Tanzania</span>
           {% endfor %}
         </a>
@@ -1167,9 +1187,9 @@
     <div class="sidebar-header">
       <div class="d-flex align-items-center">
         {% for i in compan %}
-        <img src="{{i.image|default:'{% static "img/logo.jpg" %}' }}" alt="Logo">
+        <img loading="lazy" decoding="async" src="{% if i.image %}{{ i.image|ucare:200 }}{% else %}{% static 'img/logo.jpg' %}{% endif %}" alt="Logo">
         {% empty %}
-        <img src="{% static 'img/logo.jpg' %}" alt="Logo">
+        <img loading="lazy" decoding="async" src="{% static 'img/logo.jpg' %}" alt="Logo">
         {% endfor %}
         <h4>E.M Adventure Tanzania</h4>
       </div>
@@ -1267,7 +1287,7 @@
             <div class="gallery-grid">
               {% for i in gallery %}
               <div>
-                <img class="img-fluid" src="{{i.image|default:'{% static "img/default.jpg" %}' }}" alt="{{i.Title|default:'Gallery Image'}}">
+                <img loading="lazy" decoding="async" class="img-fluid" src="{{i.image|default:'{% static "img/default.jpg" %}' }}" alt="{{i.Title|default:'Gallery Image'}}">
               </div>
               {% endfor %}
             </div>
@@ -1339,11 +1359,7 @@
         }
       });
       // Initialize WOW.js
-      new WOW({
-        mobile: true,
-        offset: 50,
-        duration: 0.8
-      }).init();
+
     });
     function trackVisit() {
       fetch('/track-visit/', {
@@ -1409,37 +1425,32 @@
     }
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
-        toggleSidebar();
+        if (document.getElementById('sidebar').classList.contains('active')) toggleSidebar();
         document.getElementById('whatsapp-chat').classList.remove('open');
       }
     });
   </script>
   <!-- JavaScript Libraries -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="{% static 'lib/wow/wow.min.js' %}"></script>
-  <script src="{% static 'lib/easing/easing.min.js' %}"></script>
-  <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
-  <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-  <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
-  <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
-  <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
-  <script src="{% static 'js/main.js' %}"></script>
+  <!-- Only what the pages use, deferred so nothing blocks rendering.
+       (jQuery + Owl Carousel are loaded by the pages with carousels.) -->
+  <script src="{% static 'js/bootstrap-5.3.3.bundle.min.js' %}" defer></script>
+  <script src="{% static 'lib/wow/wow.min.js' %}" defer></script>
+  <script src="{% static 'js/main.js' %}" defer></script>
   <!-- WhatsApp Chat Button -->
   <div class="whatsapp-chat-popup" id="whatsapp-chat">
     <div class="chat-header">
-      <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" />
+      <img loading="lazy" decoding="async" src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" />
       <h6>Hello 👋 How may we help you?<br><small>Click to chat on WhatsApp</small></h6>
       <span class="close-chat" onclick="document.getElementById('whatsapp-chat').classList.remove('open')">&times;</span>
     </div>
     <a href="https://wa.me/255742276915" target="_blank" class="chat-button">
-      <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" /> WhatsApp
+      <img loading="lazy" decoding="async" src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" /> WhatsApp
     </a>
   </div>
   <div class="whatsapp-icon" onclick="document.getElementById('whatsapp-chat').classList.toggle('open')">
-    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" />
+    <img loading="lazy" decoding="async" src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" />
   </div>
   <!-- Back to Top -->
-  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" style="background: var(--primary); border: none;"><i class="bi bi-arrow-up"></i></a>
+  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" style="background: var(--primary); border: none;" aria-label="Back to top"><i class="fas fa-arrow-up"></i></a>
 </body>
 </html>

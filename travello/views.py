@@ -343,7 +343,7 @@ def tour_list(request):
     # Collect unique tour types for dropdown
     tour_types = Tour.objects.order_by('tour_type').values_list('tour_type', flat=True).distinct()
 
-    return render(request, 'tour_list.html', {'qn':qn,'compan':compan,"safari_list": safari_list,'tours': tours, 'tour_types': tour_types,'safari':safari,'packages': all_packages,})
+    return render(request, 'tour_list.html', {'qn':qn,'compan':compan,"safari_list": safari_list,'tours': tours, 'tour_types': tour_types,'safari':safari_list,})
 
 def safari_list(request):
     qn = FAQ.objects.all()
@@ -356,6 +356,8 @@ def safari_list(request):
     location = request.GET.get('location')
     safari_type = request.GET.get('type')
 
+    safari = Travel.objects.all()
+    trip = trips_list
     if location:
         safari = safari.filter(location__icontains=location)
     if safari_type:
@@ -536,6 +538,7 @@ def Trip_list(request):
     location = request.GET.get('location')
     trip_type = request.GET.get('type')
 
+    trip = Trip_DB.objects.all()
     if location:
         trip = trip.filter(location__icontains=location)
     if trip_type:

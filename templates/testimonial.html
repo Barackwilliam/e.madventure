@@ -281,7 +281,7 @@
       <div class="review-card">
         <!-- Profile Image -->
         <div class="review-image">
-          <img src="{{ test.image|default:'{% static "img/default-testimonial.jpg" %}' }}" alt="{{ test.Full_name }}">
+          <img loading="lazy" decoding="async" src="{{ test.image|default:'{% static "img/default-testimonial.jpg" %}' }}" alt="{{ test.Full_name }}">
         </div>
 
         <!-- Review Text -->
@@ -401,13 +401,16 @@
 </style>
 
 <!-- ================= SCRIPTS ================= -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<!-- Carousel: jQuery + Owl load only on pages that use them, without blocking rendering -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" defer></script>
 
 <script>
-  $(document).ready(function(){
+  document.addEventListener('DOMContentLoaded', function () {
+    var $ = window.jQuery;
+    if (!$ || !$.fn.owlCarousel) return;
     $(".review-carousel").owlCarousel({
       items: 1,
       loop: true,

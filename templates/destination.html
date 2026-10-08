@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static imgopt %}
 
 {% block title %}All Destinations{% endblock %}
 
@@ -59,7 +59,7 @@
         <a href="{% url 'destination_detail' destination.pk %}" class="block flex-1">
           <div class="relative aspect-w-16 aspect-h-9 overflow-hidden">
             <img
-              src="{{ destination.get_image_url }}"
+              src="{{ destination.get_image_url|ucare:800 }}"
               alt="{{ destination.name }}"
               class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
               loading="lazy"

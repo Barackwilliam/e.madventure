@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 
 {% block content %}
 
   <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
 
   <style>
     :root{
@@ -163,7 +162,7 @@ By choosing camping budget safaris, you embark on a journey filled with adventur
       <!-- Card 1 -->
       <div class="col-12 col-md-6 col-lg-4">
         <article class="tour-card h-100">
-          <img class="thumb" src="{{ tour.image }}" alt="1-Day Zanzibar Tour">
+          <img loading="lazy" decoding="async" class="thumb" src="{{ tour.image|ucare:800 }}" alt="1-Day Zanzibar Tour">
           <div class="px-3 pb-2">
             <h5 class="title">{{ tour.Tour_title }}</h5>
           </div>
@@ -185,6 +184,5 @@ By choosing camping budget safaris, you embark on a journey filled with adventur
   </main>
 
   <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 
 {% block content %}
 <style>
@@ -182,7 +182,7 @@
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.{{ forloop.counter|add:1 }}s">
                 <div class="card destination-card shadow-sm h-100">
                     <div class="overflow-hidden">
-                        <img src="{{ dest.image }}" alt="{{ dest.name }}" class="card-img-top">
+                        <img loading="lazy" decoding="async" src="{{ dest.image|ucare:800 }}" alt="{{ dest.name }}" class="card-img-top">
                     </div>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ dest.name }}</h5>

@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 
 {% block title %}{{ tour.title }}{% endblock %}
 
 {% block content %}
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
   body {
@@ -15,7 +14,7 @@
 
   /* Hero */
   .hero {
-    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("{{tour.image}}") center/cover no-repeat;
+    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("{{ tour.image|ucare:1600 }}") center/cover no-repeat;
     height: 55vh;
     display: flex;
     align-items: center;
@@ -173,5 +172,4 @@
 </div>
 
 <!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock %}

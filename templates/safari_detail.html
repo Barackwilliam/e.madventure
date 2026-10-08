@@ -288,7 +288,7 @@
         <div class="card">
           <h1>{{ safaris.title }}</h1>
           {% if safaris.featured_image %}
-            <img src="{{ safaris.featured_image|default:'{% static "img/default-safari.jpg" %}' }}" class="img-fluid mb-4" alt="{{ safaris.title }}">
+            <img loading="lazy" decoding="async" src="{{ safaris.featured_image|default:'{% static "img/default-safari.jpg" %}' }}" class="img-fluid mb-4" alt="{{ safaris.title }}">
           {% endif %}
           <p><strong>Location:</strong> {{ safaris.location }}</p>
           <p><strong>Days:</strong> {{ safaris.days }}</p>

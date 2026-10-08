@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 
 {% block content %}
 
@@ -97,7 +97,7 @@
     <div class="row g-4">
       <div class="col-lg-12">
         <div class="destination-hero mb-4">
-          <img src="{{ destination.image }}" alt="{{ destination.name }}">
+          <img fetchpriority="high" decoding="async" src="{{ destination.image|ucare:1200 }}" alt="{{ destination.name }}">
           {% if destination.is_unesco_site %}
           <span class="destination-badge"><i class="fas fa-landmark me-1"></i>UNESCO Site</span>
           {% endif %}

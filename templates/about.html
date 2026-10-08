@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 
 {% block content %}
 <style>
@@ -354,7 +354,7 @@
 
 {% if abouts %}
   {% for i in abouts %}
-  <section class="about-hero wow fadeIn" data-wow-delay="0.2s" {% if i.image %}style="background-image: url('{{ i.image }}');"{% else %}style="background-image: url('{% static "img/serengeti.jpg" %}');"{% endif %}>
+  <section class="about-hero wow fadeIn" data-wow-delay="0.2s" {% if i.image %}style="background-image: url('{{ i.image|ucare:1600 }}');"{% else %}style="background-image: url('{% static "img/serengeti.jpg" %}');"{% endif %}>
     <div class="content">
       <h1>{{ i.title }}</h1>
       <p>{{ i.content }}</p>
@@ -396,7 +396,7 @@
       {% for i in teams %}
       <div class="col-lg-3 col-md-6">
         <div class="team-item">
-          <img src="{{ i.image }}" alt="{{ i.Full_name }}">
+          <img loading="lazy" decoding="async" src="{{ i.image|ucare:500 }}" alt="{{ i.Full_name }}">
           <span class="badge">{{ i.designation }}</span>
           <div class="social-links">
             {% if i.facebook_link %}
